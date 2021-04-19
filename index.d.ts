@@ -118,6 +118,9 @@ interface TransactionArgs {
 interface DeleteChildArgs {
   child?: boolean;
 }
+type FirebasePrimitiveTypes = string | number | Date
+type FirebaseCollectionTypes = FirebasePrimitiveTypes[] | {[key:string]:FirebasePrimitiveTypes}
+type FirebaseTypes = FirebasePrimitiveTypes | FirebaseCollectionTypes
 type CollectionGetArgs = QueryIdentifierArgs & TransactionArgs;
 type CollectionDeleteArgs = QueryIdentifierArgs & DeleteChildArgs;
 declare class Collection {
@@ -143,9 +146,10 @@ declare class Collection {
 
   transaction(...args: any[]): void;
 
-  where(field: string, operator: string, value: string): Query;
+  where(field: string, operator: string, value: FirebaseTypes): Query;
 }
 
 declare class Query {
-  where(field: string, operator: string, value: string): Query;
+  fetch<T>(size: number): Promise<T>
+  where(field: string, operator: string, value: FirebaseTypes): Query;
 }
