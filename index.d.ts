@@ -77,13 +77,13 @@ type TextField = (
 ) => string;
 type NumberField = (options?: FieldProps<number>) => number;
 type BooleanField = (options?: FieldProps<boolean>) => boolean;
-type ListField = (options?: FieldProps<FirestoreTypes[]>) => FirestoreTypes[];
+type ListField<T extends FirestoreTypes> = (options?: FieldProps<T[]>) => T[];
 type MapField = (
   options?: FieldProps<{ [key: string]: FirestoreTypes }>
 ) => { [key: string]: FirestoreTypes };
 type DateTimeField = (options?: FieldProps<Date> & { auto?: boolean }) => Date;
 type GeoPointField = (options?: FieldProps<GeoPoint>) => GeoPoint;
-type ReferenceField = <T>(
+type ReferenceField<T> = (
   options?: FieldProps<string> & { autoLoad?: boolean }
 ) => string | T;
 
@@ -92,7 +92,7 @@ export class Field {
   static Text: TextField;
   static Number: NumberField;
   static Boolean: BooleanField;
-  static List: ListField;
+  static List<T extends FirestoreTypes>(options?: {}): T[];
   static Map: MapField;
   static DateTime: DateTimeField;
   static GeoPoint: GeoPointField;
