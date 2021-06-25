@@ -31,7 +31,7 @@ export class Model {
   upsert(options?: TransactionOrBatchProp): Promise<void>;
   update(options?: IDOrKeyProps & TransactionOrBatchProp): Promise<void>;
   static fromObject<T>(map: { [key: string]: FirestoreTypes }): T;
-  static init<T>(args?: { parent?: string }): T;
+  static init<T>(args?: { parent?: string, transaction?: Transaction }): T;
   static parent<T>(key: FirestoreKey): T;
   static get collection(): Collection;
 }
